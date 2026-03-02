@@ -9,8 +9,6 @@ workflows:
         PACKAGE_NAME: "com.polymarketapp"
       node: 18
       java: 17
-      android_signing:
-        - keystore_reference: android_keystore
     triggering:
       events:
         - push
@@ -40,4 +38,4 @@ workflows:
           - user@example.com
         notify:
           success: true
-          failure: true
+          failure: false
