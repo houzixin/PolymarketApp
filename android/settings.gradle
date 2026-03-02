@@ -1,4 +1,11 @@
 rootProject.name = 'PolymarketApp'
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
+
+// 使用本地 node_modules 中的 React Native
+def reactNativePath = new File(['node', '--print', "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), '../')
+includeBuild(reactNativePath) {
+    dependencySubstitution {
+        substitute module('com.facebook.react:react-android') using project(':')
+        substitute module('com.facebook.react:react-native') using project(':')
+    }
+}
